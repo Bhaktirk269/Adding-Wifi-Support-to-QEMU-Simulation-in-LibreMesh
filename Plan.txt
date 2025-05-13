@@ -1,0 +1,43 @@
+Plan :
+The implementation can be broken down into three milestones:
+MILESTONE 1: Initial Research & Basic Setup :
+a. Review of existing tools
+• Study mac80211_hwsim, vwifi, and OpenWrt test frameworks to understand how virtual 
+Wi-Fi and router testing work.
+• Explore how LibreMesh firmware operates and how routing protocols like BMX6 are tested.
+• Understand QEMU basics and how it can be used to simulate LibreMesh routers.
+b. Setup of base QEMU and LibreMesh environment
+• Create a basic setup where a LibreMesh firmware image boots inside a QEMU virtual 
+machine.
+• Ensure SSH or LuCI interface is accessible using a port-forwarding method 
+(forward_ports_to_vm script).
+• Verify the VM starts successfully and acts like a normal router.
+MILESTONE 2: Virtual Wi-Fi and Mesh Simulation:
+a. Integration of mac80211_hwsim module
+• Use the setup_virtual_wifi.sh script to load mac80211_hwsim and create fake Wi-Fi 
+interfaces (wlan0, wlan1, etc.).
+• Check whether the interfaces appear using iw dev and ip link.
+b. Attaching virtual Wi-Fi to VMs
+• Write attach_interface_to_vm to link each virtual radio to a VM's network interface.
+• Validate the VM can access the interface and recognize it as a Wi-Fi adapter.
+c. Multi-VM mesh formation and routing check
+• Use the create_vm script to launch multiple VMs and connect them into a mesh.
+• Test connectivity using ping and mesh routing protocol tools like bmx6 -c topology.
+• Verify routing updates if any node is restarted or removed.
+MILESTONE 3: Automation, Reproducibility & Documentation:
+a. Script automation and test runner
+• Develop test_runner.sh to automatically run tests like VM setup, interface check, mesh 
+connectivity, etc.
+• Write reproducible_setup.sh to reset the testbed and reproduce the same network 
+environment.
+b. Integration with LibreMesh tools
+• Ensure compatibility with existing LibreMesh CI testing frameworks and test it across 
+multiple virtual topologies.
+• Validate that your testing scripts work with routing protocols and the default LibreMesh 
+environment.
+c. Documentation and Finalization
+• Write setup instructions for developers on how to use the test scripts and run mesh 
+simulations.
+• Perform final testing and debugging of all scripts.
+• Publish blog posts showing the workflow, screenshots, and key results.
+T
